@@ -1,5 +1,8 @@
 import * as C from './styles';
+import { useContext } from 'react';
+import { CartContext } from '../../context/ItemsContext';
 import { Popover, Transition } from '@headlessui/react';
+import { IProducts } from '../../types';
 import { 
   Bell, 
   Handbag, 
@@ -9,9 +12,9 @@ import {
   X
 } from 'phosphor-react';
 
-import headset from '../../assets/headset-razer.png';
 
 export default () => {
+  const { cart, removeProductCart } = useContext(CartContext);
   return(
     <C.Header>
       <C.SearchBox>
@@ -84,27 +87,33 @@ export default () => {
               </C.HeaderPanel>
 
               <C.ListItems>
-                <C.Item>
-                  <a href="#">
-                    <img src={headset} alt="Headset razer preto"/>
-                    <C.InfoItem>
-                      <C.NameItem>
-                        <h1>Razer Kraken Ultimate</h1>
-                        <h2>Headset Gamer</h2>
-                        <h3>R$249.00</h3>
-                      </C.NameItem>
-                      <C.ButtonsItem>
-                        <button title="Remover item">
-                          <Trash
-                            weight="bold"
-                            className="w-4 h-4 text-white" 
-                          />
-                        </button>
-                        <p>Ver item</p>
-                      </C.ButtonsItem>
-                    </C.InfoItem>
-                  </a>
-                </C.Item>
+
+                {cart.map(product => (
+                  <C.Item key={product.id}>
+                    <a href="#">
+                      <img src={product.data.image} alt="Headset razer preto"/>
+                      <C.InfoItem>
+                        <C.NameItem>
+                          <h1>{product.data.name}</h1>
+                          <h2>{product.data.category}</h2>
+                          <h3>{product.data.price}</h3>
+                        </C.NameItem>
+                        <C.ButtonsItem>
+                          <button title="Remover item" 
+                            onClick={() =>removeProductCart(product.id)}
+                          >
+                            <Trash
+                              weight="bold"
+                              className="w-4 h-4 text-white" 
+                            />
+                          </button>
+                          <p>Ver item</p>
+                        </C.ButtonsItem>
+                      </C.InfoItem>
+                    </a>
+                  </C.Item>
+                ))}
+
 
                 <button>Finalizar compra</button>
               </C.ListItems>
@@ -116,7 +125,7 @@ export default () => {
                 color="var(--dark-100)"
                 className="w-5 h-5" 
               />
-              <span>1</span>
+              <span>{cart.length}</span>
             </Popover.Button>
           </Popover>
         </C.NotifyCart>

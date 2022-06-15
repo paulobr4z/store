@@ -1,39 +1,35 @@
 import { createContext, ReactNode, useState } from "react";
-import { items } from '../object/object';
+import { IProducts } from "../types";
 
-console.log(items);
-
-interface Props {
+interface ICartProvider {
   children: ReactNode;
 }
 
-interface Item {
-  name: string;
-  image: string;
-  price: string;
-  category: string;
+interface IItemsContext {
+  cart: IProducts[];
+  addProductCart: (item: IProducts) => void;
+  removeProductCart: (id: number) => void;
 }
 
-interface Items {
-  id: number;
-  emphasis: string;
-  data: Item;
-}
+export const CartContext = createContext({} as IItemsContext);
 
-interface ItemsCart {
-  cart: Items;
-  setCart: () => void;
-}
+export const CartProvider = ({ children }: ICartProvider) => {
+  const [cart, setCart] = useState<IProducts[]>([]);
 
-export const ItemsContext = createContext<Items | null>(null);
+  const addProductCart = (newItem: IProducts) => {
+    setCart([...cart, newItem]);
+  }
 
-export const ItemsContextProvider = ({ children }: Props) => {
-
-  const [cart, setCart] = useState<ItemsCart>();
+  const removeProductCart = (id: number) => {
+    const removeItem = cart.filter(item => item.id !== id)
+    setCart(removeItem);
+  }
 
   return(
-    <ItemsContext.Provider value={{ cart, setCart }}>
+    <CartContext.Provider value={{ cart, addProductCart, removeProductCart }}>
       {children}
-    </ItemsContext.Provider>
-  );
+    </CartContext.Provider>
+  )
 }
+
+

@@ -5,12 +5,11 @@ import Items from './items';
 import Games from './games';
 
 export default () => {
-
   return(
     <C.Container>
       <Banner/>
       <ButtosProduct/>
-      <Items/>
+      <Items />
       <Games/>
     </C.Container>
   );

@@ -6,7 +6,7 @@ import tecladoHyperx from '../assets/teclado-hyperx.png';
 
 export const items = [{
     id: 1,
-    marca: "hyperx",
+    brand: "hyperx",
     emphasis: "SOLD",
     data: {
       name: "HyperX Alloy RGB",
@@ -17,7 +17,7 @@ export const items = [{
   },
   {
     id: 2,
-    marca: "razer",
+    brand: "razer",
     emphasis: "POPULAR",
     data: {
       name: "Razer Kraken",
@@ -28,7 +28,7 @@ export const items = [{
   },
   {
     id: 3,
-    marca: "logitech",
+    brand: "logitech",
     emphasis: "SOLD",
     data: {
       name: "Logitech G903 Lightspeed",
@@ -39,7 +39,7 @@ export const items = [{
   },
   {
     id: 4,
-    marca: "corsair",
+    brand: "corsair",
     emphasis: "TOP",
     data: {
       name: "Corsair HS35 STEREO",
@@ -50,7 +50,7 @@ export const items = [{
   },
   {
     id: 5,
-    marca: "fortrek",
+    brand: "fortrek",
     emphasis: "SOLD",
     data: {
       name: "Fortrek Vickers",
